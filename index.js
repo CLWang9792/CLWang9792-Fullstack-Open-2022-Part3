@@ -1,5 +1,4 @@
 require("dotenv").config();
-const { response, request } = require("express");
 const express = require("express");
 const morgan = require("morgan");
 const app = express();
@@ -28,7 +27,7 @@ app.use(express.static("build"));
 app.use(express.json());
 app.use(cors());
 
-morgan.token("body", function (req, res) {
+morgan.token("body", function (req) {
   return JSON.stringify(req.body);
 });
 
@@ -40,14 +39,16 @@ morgan.format(
 app.use(morgan("info"));
 
 app.get("/info", (req, res, next) => {
-  Person.find({}).then((person) => {
-    res.send(
-      `<div>
+  Person.find({})
+    .then((person) => {
+      res.send(
+        `<div>
     Phonebook has info for ${person.length} people
     </div>
     <div>${new Date()}</div>`
-    );
-  });
+      );
+    })
+    .catch((error) => next(error));
 });
 
 app.get("/api/persons", (req, res) => {
@@ -100,9 +101,7 @@ app.put("/api/persons/:id", (req, res, next) => {
 
 app.delete("/api/persons/:id", (req, res, next) => {
   Person.findByIdAndRemove(req.params.id)
-    .then((result) => {
-      res.status(204).end();
-    })
+    .then(res.status(204).end())
     .catch((error) => next(error));
 });
 

@@ -5,15 +5,13 @@ const url = process.env.MONGODB_URI;
 
 mongoose
   .connect(url)
-  .then((result) => {
-    console.log("connected to MongoDB");
-  })
+  .then(console.log("connected to MongoDB"))
   .catch((error) => {
     console.log("error connecting to MongoDB:", error.message);
   });
 
 const phoneNumberReg =
-  /(^[0-9]{2,3}\-[0-9]{8}$)|(^\([0-9]{2,3}\)[0-9]{8}$)|(^09[0-9]{8}$)/;
+  /(^[0-9]{2,3}-[0-9]{8}$)|(^\([0-9]{2,3}\)[0-9]{8}$)|(^09[0-9]{8}$)/;
 
 const personSchema = new mongoose.Schema({
   name: {
