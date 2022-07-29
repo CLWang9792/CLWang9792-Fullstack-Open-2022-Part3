@@ -4,15 +4,15 @@ GET http://localhost:3001/api/persons/ HTTP/1.1
 GET http://localhost:3001/info HTTP/1.1
 
 ###
-GET http://localhost:3001/api/persons/ HTTP/1.1
+GET http://localhost:3001/api/persons/62e0dd94767f481d09a4bd8a HTTP/1.1
 
 ###
 POST http://localhost:3001/api/persons/ HTTP/1.1
 content-type: application/json
 
 {
-    "name": "TEST",
-    "number": "0544646416"
+    "name": "TESTT",
+    "number": "05451564646416"
 }
 
 ###

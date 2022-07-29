@@ -12,9 +12,20 @@ mongoose
     console.log("error connecting to MongoDB:", error.message);
   });
 
+const phoneNumberReg =
+  /(^[0-9]{2,3}\-[0-9]{8}$)|(^\([0-9]{2,3}\)[0-9]{8}$)|(^09[0-9]{8}$)/;
+
 const personSchema = new mongoose.Schema({
-  name: String,
-  number: String,
+  name: {
+    type: String,
+    minLength: 3,
+    required: true,
+  },
+  number: {
+    type: String,
+    match: [phoneNumberReg],
+    required: true,
+  },
   date: Date,
   id: String,
 });
